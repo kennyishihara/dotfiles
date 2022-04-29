@@ -8,3 +8,12 @@ mouse = false
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[keys.normal]
+"semicolon" = "repeat_last_motion"
+
+[keys.insert]
+C-c = "normal_mode"
+
+[keys.select]
+C-c = "normal_mode"
