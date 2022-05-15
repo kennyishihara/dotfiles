@@ -32,8 +32,8 @@ local tmux_keybinds = {
   }
 
 local default_keybinds = {
-    { key = "c", mods = "SUPER|SHIFT", action = wezterm.action({ CopyTo = "Clipboard" }) },
-    { key = "p", mods = "SUPER|SHIFT", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+    { key = "c", mods = "SUPER", action = wezterm.action({ CopyTo = "Clipboard" }) },
+    { key = "v", mods = "SUPER", action = wezterm.action({ PasteFrom = "Clipboard" }) },
     { key = "=", mods = "SUPER", action = "ResetFontSize" },
     { key = "+", mods = "SUPER|SHIFT", action = "IncreaseFontSize" },
     { key = "_", mods = "SUPER|SHIFT", action = "DecreaseFontSize" },
@@ -87,10 +87,11 @@ local config = {
     use_dead_keys = false,
     window_decorations = "RESIZE",
     hide_tab_bar_if_only_one_tab = true,
-    line_height = 0.9,
+    line_height = 1.0,
     keys = create_keybinds(),
     disable_default_key_bindings = true,
     tab_bar_at_bottom = true,
+    -- window_background_opacity = 0.9,
   }
 
 return utils.merge_tables(config, local_config)

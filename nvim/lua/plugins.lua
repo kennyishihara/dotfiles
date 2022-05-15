@@ -157,11 +157,11 @@ return require('packer').startup(function(use)
     end
   }
 
-  use {'Mofiqul/trld.nvim',
-    config = function()
-      require("config.trld")
-    end
-  }
+  -- use {'Mofiqul/trld.nvim',
+  --   config = function()
+  --     require("config.trld")
+  --   end
+  -- }
 
   use { 'hrsh7th/nvim-cmp',
     requires = {
