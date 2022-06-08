@@ -17,3 +17,11 @@ C-c = "normal_mode"
 
 [keys.select]
 C-c = "normal_mode"
+
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+space = "·"
+tab = "→"
+newline = "⏎"
