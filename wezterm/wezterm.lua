@@ -40,6 +40,7 @@ local default_keybinds = {
     { key = "Space", mods = "SUPER|SHIFT", action = "QuickSelect" },
     { key = "r", mods = "SUPER", action = "ReloadConfiguration" },
     { key = "w", mods = "SUPER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
+    { key = "q", mods = "SUPER", action = "HideApplication"},
   }
 
 local function create_keybinds()
@@ -81,16 +82,16 @@ local local_config = load_local_config()
 --- Config
 ---------------------------------------------------------------
 local config = {
-    color_scheme = "Gruvbox Dark",
+    color_scheme = "VSCodeDark+ (Gogh)",
     font_size = 15.0,
     font = wezterm.font("Comic Code"),
     use_dead_keys = false,
     window_decorations = "RESIZE",
-    hide_tab_bar_if_only_one_tab = true,
+    -- hide_tab_bar_if_only_one_tab = true,
     line_height = 1.0,
     keys = create_keybinds(),
     disable_default_key_bindings = true,
-    tab_bar_at_bottom = true,
+    -- tab_bar_at_bottom = true,
     -- window_background_opacity = 0.9,
   }
 

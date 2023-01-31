@@ -1,8 +1,13 @@
-theme = "gruvbox"
+theme = "dark_plus"
 
 [editor]
 line-number = "relative"
-mouse = false
+cursorline = true
+# auto-save = true
+# auto-pairs = false
+
+[editor.indent-guides]
+render = true
 
 [editor.lsp]
 display-messages = true
@@ -12,16 +17,16 @@ insert = "bar"
 normal = "block"
 select = "underline"
 
+[keys.normal]
+D = "delete_char_backward"
+"ret" = ["move_line_down", "goto_first_nonwhitespace"]
+
 [keys.insert]
 C-c = "normal_mode"
 
 [keys.select]
 C-c = "normal_mode"
 
-[editor.whitespace]
-render = "all"
-
 [editor.whitespace.characters]
 space = "·"
 tab = "→"
-newline = "⏎"

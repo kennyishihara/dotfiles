@@ -1,11 +1,13 @@
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home
-export PATH=$HOME/bin:/usr/local/bin:/usr/local/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
-
-# Path to your oh-my-zsh installation.
+export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
+export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
+export EDITOR='/opt/homebrew/opt/helix/bin/hx'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
 
-plugins=(git zsh-autosuggestions fzf ripgrep zsh-syntax-highlighting)
+alias ibrew="arch -x86_64 /usr/local/bin/brew"
+alias abrew="/opt/homebrew/bin/brew"
+
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -14,7 +16,9 @@ bindkey "[C" forward-word
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
 
-alias nv="nvim"
+#mcfly
+export MCFLY_RESULTS=50
+export MCFLY_INTERFACE_VIEW=BOTTOM
 
 # exa
 if [[ $(command -v exa) ]]; then
@@ -47,6 +51,11 @@ if [[ $(command -v z) ]]; then
   alias cd="z"
 fi
 
+# zellij
+if [[ $(command -v zellij) ]]; then
+  alias ze="zellij"
+fi
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # Run conda config --set changeps1 false to hide the env name
@@ -65,3 +74,5 @@ unset __conda_setup
 
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
+
+source /Users/kennyishihara/.config/broot/launcher/bash/br
