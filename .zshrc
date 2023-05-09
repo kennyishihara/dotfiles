@@ -1,11 +1,7 @@
-export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
-export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
+export PATH=$HOME/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
 export EDITOR='/opt/homebrew/opt/helix/bin/hx'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
-
-alias ibrew="arch -x86_64 /usr/local/bin/brew"
-alias abrew="/opt/homebrew/bin/brew"
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -15,6 +11,8 @@ bindkey "[D" backward-word
 bindkey "[C" forward-word
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
+
+alias backup='rsync -avP ~/Cryptomator/* /Volumes/Secure_USB/'
 
 #mcfly
 export MCFLY_RESULTS=50
