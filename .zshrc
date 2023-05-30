@@ -49,11 +49,6 @@ if [[ $(command -v z) ]]; then
   alias cd="z"
 fi
 
-# zellij
-if [[ $(command -v zellij) ]]; then
-  alias ze="zellij"
-fi
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 # Run conda config --set changeps1 false to hide the env name
