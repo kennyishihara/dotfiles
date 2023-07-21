@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 vim.opt.swapfile = false
 vim.opt.syntax = "on"
 vim.opt.autoindent = true
@@ -24,3 +22,4 @@ vim.opt.shortmess:append("c")
 vim.opt.diffopt:append("iwhite")
 vim.opt.showmatch = true
 vim.opt.wrap = true
+vim.g.mapleader = " "
