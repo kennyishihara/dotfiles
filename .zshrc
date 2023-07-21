@@ -1,7 +1,9 @@
-export PATH=$HOME/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
+export PATH=$HOME/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
 export EDITOR='/opt/homebrew/opt/helix/bin/hx'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
+export PATH=/Users/kennyishihara/Developer/zig-nightly/zig/build/stage3/bin:$PATH
+export PATH=/Users/kennyishihara/Developer/zls/zig-out/bin:$PATH
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -18,19 +20,13 @@ alias backup='rsync -avP ~/Cryptomator/* /Volumes/Secure_USB/'
 export MCFLY_RESULTS=50
 export MCFLY_INTERFACE_VIEW=BOTTOM
 
-# exa
-if [[ $(command -v exa) ]]; then
- alias e='exa --icons'
- alias l=e
- alias ls=e
- alias ea='exa -a --icons'
- alias la=ea
- alias ee='exa -aal --icons'
- alias ll=ee
- alias et='exa -T -L 3 -a -I "node_modules|.git|.cache" --icons'
- alias lt=et
- alias eta='exa -T -a -I "node_modules|.git|.cache" --color=always --icons | less -r'
- alias lta=eta
+# lsd
+if [[ $(command -v lsd) ]]; then
+  alias ls='lsd'
+  alias l='ls -l'
+  alias la='ls -a'
+  alias lla='ls -la'
+  alias lt='ls --tree'
 fi
 
 # helix
@@ -38,20 +34,10 @@ if [[ $(command -v hx) ]]; then
   alias h="hx"
 fi
 
-# felix
-if [[ $(command -v fx) ]]; then
-  alias f="fx"
-fi
-
 # zoxide
 eval "$(zoxide init zsh)"
 if [[ $(command -v z) ]]; then
   alias cd="z"
-fi
-
-# zellij
-if [[ $(command -v zellij) ]]; then
-  alias ze="zellij"
 fi
 
 # >>> conda initialize >>>
@@ -69,6 +55,9 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# AWS SAM disable telemetry
+export SAM_CLI_TELEMETRY=0
 
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
