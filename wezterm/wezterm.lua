@@ -60,24 +60,6 @@ local function load_local_config()
   end
 local local_config = load_local_config()
 
--- local M = {}
--- local local_config = {
-  --   ssh_domains = {
-  --     {
-  --       -- This name identifies the domain
---       name = "my.server",
---       -- The address to connect to
---       remote_address = "192.168.8.31",
---       -- The username to use on the remote host
---       username = "katayama",
---     },
---   },
--- }
--- function M.setup()
---   return local_config
--- end
--- return M
-
 ---------------------------------------------------------------
 --- Config
 ---------------------------------------------------------------
@@ -87,12 +69,12 @@ local config = {
     font = wezterm.font("Roboto Mono"),
     use_dead_keys = false,
     window_decorations = "RESIZE",
-    -- hide_tab_bar_if_only_one_tab = true,
+    hide_tab_bar_if_only_one_tab = true,
     line_height = 1.0,
     keys = create_keybinds(),
     disable_default_key_bindings = true,
-    -- tab_bar_at_bottom = true,
-    -- window_background_opacity = 0.9,
+    tab_bar_at_bottom = true,
+    window_background_opacity = 0.95,
   }
 
 return utils.merge_tables(config, local_config)
