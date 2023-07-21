@@ -14,14 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- the colorscheme should be available when starting Neovim
   {
-    "folke/tokyonight.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      -- load the colorscheme here
-      vim.opt.termguicolors = true
-      vim.cmd([[colorscheme tokyonight]])
-    end
+    "Mofiqul/vscode.nvim"
   },
 
   {'nvim-lualine/lualine.nvim',
@@ -91,20 +84,45 @@ local plugins = {
         lsp.default_keymaps({buffer = bufnr})
       end)
 
-      -- (Optional) Configure lua language server for neovim
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
+  
       lsp.setup()
+
+      local cmp = require('cmp')
+      local cmp_action = require('lsp-zero').cmp_action()
+
+      cmp.setup({
+      	mapping = {
+      		['<C-u>'] = cmp.mapping.scroll_docs(-4),
+      		['<C-d>'] = cmp.mapping.scroll_docs(4),
+      		['<CR>'] = cmp.mapping.confirm({
+      			behavior = cmp.ConfirmBehavior.Replace,
+      			select = false,
+      		}),
+
+      		["<C-n>"] = cmp.mapping(function(fallback)
+      			if cmp.visible() then
+      				cmp.select_next_item()
+      			end
+      		end, {"i", "s"}),
+
+      		["<C-p>"] = cmp.mapping(function(fallback)
+      			if cmp.visible() then
+      				cmp.select_prev_item()
+      			end
+      		end, {"i", "s"}),
+
+      	},
+      })
     end
   },
 
-  {'github/copilot.vim',
+  {
+    'github/copilot.vim',
     config = function()
-      vim.cmd[[
-        imap <silent><script><expr> <C-e> copilot#Accept('\<CR>')
-        let g:copilot_no_tab_map = v:true
-      ]]
-    end
+      vim.g.copilot_no_tab_map = true
+      vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+    end 
   },
 
   -- treesitter
@@ -114,6 +132,7 @@ local plugins = {
       'nvim-lua/plenary.nvim'
     },
     config = function()
+      require('config.telescope')
       local builtin = require('telescope.builtin')
       vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})

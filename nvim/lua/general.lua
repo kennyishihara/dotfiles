@@ -10,7 +10,6 @@ vim.opt.smarttab = true
 vim.opt.tabstop = 2
 vim.opt.re = 2
 vim.opt.encoding = "UTF-8"
-vim.opt.cursorline = true
 vim.opt.clipboard = "unnamed"
 vim.opt.incsearch = true
 vim.opt.smartcase = true
