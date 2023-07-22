@@ -56,7 +56,7 @@ vnoremap("<leader>d", '"_d')
 vnoremap("<leader>p", '"_dP')
 
 -- Move between vim windows
-nnoremap("<C-h>", "<C-W>h")
-nnoremap("<C-j>", "<C-W>j")
-nnoremap("<C-k>", "<C-W>k")
-nnoremap("<C-l>", "<C-W>l")
+-- nnoremap("<C-h>", "<C-W>h")
+-- nnoremap("<C-j>", "<C-W>j")
+-- nnoremap("<C-k>", "<C-W>k")
+-- nnoremap("<C-l>", "<C-W>l")

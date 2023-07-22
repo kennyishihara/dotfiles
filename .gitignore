@@ -34,9 +34,7 @@ build/
 *.pidb
 *.svclog
 *.scc
-coc
 dask
 github-copilot
 mc
 jgit
-iterm2

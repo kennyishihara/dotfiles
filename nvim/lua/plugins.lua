@@ -21,9 +21,10 @@ local plugins = {
         -- ...
       })
 
-      vim.cmd('colorscheme github_dark')
+      vim.cmd('colorscheme github_dark_dimmed')
     end,
   },
+
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
@@ -39,7 +40,6 @@ local plugins = {
     config = function()
       require('trouble').setup {
         diagnostic_signs = true,
-        auto_close = true,
       }
       vim.api.nvim_set_keymap("n", "<F2>", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
     end
@@ -48,6 +48,20 @@ local plugins = {
   {
     'stevearc/dressing.nvim',
     opts = {}
+  },
+
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      vim.g.nvim_tree_indent_markers = 1
+      vim.g.nvim_tree_highlight_opened_files = 1
+      require('nvim-tree').setup {
+        trash = {
+          cmd = "trash"
+        }
+      }
+      vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
+    end
   },
 
   {
@@ -98,30 +112,36 @@ local plugins = {
 
       lsp.setup()
 
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
+
+      local luasnip = require('luasnip')
       local cmp = require('cmp')
-      local cmp_action = require('lsp-zero').cmp_action()
 
       cmp.setup({
         mapping = {
-          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-d>'] = cmp.mapping.scroll_docs(4),
-          ['<CR>'] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-          }),
+        ["<C-n>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.jumpable(1) then
+            luasnip.jump(1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
 
-          ["<C-n>"] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.select_next_item()
-            end
-          end, { "i", "s" }),
-
-          ["<C-p>"] = cmp.mapping(function()
-            if cmp.visible() then
-              cmp.select_prev_item()
-            end
-          end, { "i", "s" }),
-
+        ["<C-p>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" })
         },
       })
     end
@@ -131,7 +151,7 @@ local plugins = {
     'github/copilot.vim',
     config = function()
       vim.g.copilot_no_tab_map = true
-      vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+      vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
     end
   },
 
@@ -145,17 +165,22 @@ local plugins = {
     config = function()
       require('config.telescope')
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+      vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+      vim.keymap.set('n', '<leader>l', builtin.live_grep, {})
+      vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+      vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
     end
   },
+
   {
     'ggandor/leap.nvim',
     config = function()
       require('leap').add_default_mappings()
     end
+  },
+
+  {
+    "cohama/lexima.vim"
   }
 }
 
