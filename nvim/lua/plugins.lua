@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   {
     'projekt0n/github-nvim-theme',
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require('github-theme').setup({
@@ -60,7 +60,7 @@ local plugins = {
           cmd = "trash"
         }
       }
-      vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
+      vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
     end
   },
 
@@ -86,7 +86,7 @@ local plugins = {
     dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' }, -- Required
-      {                          -- Optional
+      {                            -- Optional
         'williamboman/mason.nvim',
         build = function()
           pcall(vim.cmd, 'MasonUpdate')
@@ -95,9 +95,9 @@ local plugins = {
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },   -- Required
+      { 'hrsh7th/nvim-cmp' },     -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' },   -- Required
+      { 'L3MON4D3/LuaSnip' },     -- Required
     },
     config = function()
       local lsp = require('lsp-zero').preset({})
@@ -112,46 +112,83 @@ local plugins = {
 
       lsp.setup()
 
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      local luasnip = require('luasnip')
       local cmp = require('cmp')
+      local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
       cmp.setup({
+        sources = {
+          { name = 'nvim_lsp' },
+        },
         mapping = {
-        ["<C-n>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif luasnip.jumpable(1) then
-            luasnip.jump(1)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
+          ['<Space>'] = cmp.mapping.confirm({ select = false }),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-d>'] = cmp.mapping.scroll_docs(4),
+          ['<C-p>'] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.select_prev_item(cmp_select_opts)
+            else
+              cmp.complete()
+            end
+          end),
+          ['<C-n>'] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.select_next_item(cmp_select_opts)
+            else
+              cmp.complete()
+            end
+          end),
+        },
+        snippet = {
+          expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+          end,
+        },
+        window = {
+          documentation = {
+            max_height = 15,
+            max_width = 60,
+          }
+        },
+        formatting = {
+          fields = { 'abbr', 'menu', 'kind' },
+          format = function(entry, item)
+            local short_name = {
+              nvim_lsp = 'LSP',
+              nvim_lua = 'nvim'
+            }
 
-        ["<C-p>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s" })
+            local menu_name = short_name[entry.source.name] or entry.source.name
+
+            item.menu = string.format('[%s]', menu_name)
+            return item
+          end,
         },
       })
     end
   },
 
+  --  {
+  --    'github/copilot.vim',
+  --    config = function()
+  --      vim.g.copilot_no_tab_map = true
+  --      vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+  --    end
+  --  },
+
   {
-    'github/copilot.vim',
+    'codota/tabnine-nvim',
+    build = "./dl_binaries.sh",
     config = function()
-      vim.g.copilot_no_tab_map = true
-      vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+      require('tabnine').setup({
+        disable_auto_comment = true,
+        accept_keymap = "<C-j>",
+        dismiss_keymap = "<C-]>",
+        debounce_ms = 800,
+        suggestion_color = { gui = "#808080", cterm = 244 },
+        exclude_filetypes = { "TelescopePrompt" },
+        log_file_path = nil, -- absolute path to Tabnine log file
+      })
     end
   },
 
