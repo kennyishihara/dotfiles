@@ -13,23 +13,27 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   {
-    'projekt0n/github-nvim-theme',
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
+    'Mofiqul/vscode.nvim',
     config = function()
-      require('github-theme').setup({
-        -- ...
+      require('vscode').setup({
+          italic_comments = true,
       })
-
-      vim.cmd('colorscheme github_dark_dimmed')
-    end,
+      require('vscode').load()
+    end
   },
 
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'kyazdani42/nvim-web-devicons'
-    }
+    },
+    config = function()
+      require('lualine').setup({
+        options = {
+          theme = 'vscode'
+        }
+      })
+    end
   },
 
   {
@@ -185,7 +189,7 @@ local plugins = {
         accept_keymap = "<C-j>",
         dismiss_keymap = "<C-]>",
         debounce_ms = 800,
-        suggestion_color = { gui = "#808080", cterm = 244 },
+        suggestion_color = { gui = "#7CD0A7", cterm = 244 },
         exclude_filetypes = { "TelescopePrompt" },
         log_file_path = nil, -- absolute path to Tabnine log file
       })
@@ -218,6 +222,14 @@ local plugins = {
 
   {
     "cohama/lexima.vim"
+  },
+
+  {
+    "echasnovski/mini.nvim",
+    version = false,
+    config = function()
+      require('mini.align').setup()
+    end
   }
 }
 
