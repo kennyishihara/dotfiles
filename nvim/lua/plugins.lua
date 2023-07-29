@@ -16,7 +16,7 @@ local plugins = {
     'Mofiqul/vscode.nvim',
     config = function()
       require('vscode').setup({
-          italic_comments = true,
+        italic_comments = true,
       })
       require('vscode').load()
     end
@@ -172,29 +172,73 @@ local plugins = {
     end
   },
 
-  --  {
-  --    'github/copilot.vim',
-  --    config = function()
-  --      vim.g.copilot_no_tab_map = true
-  --      vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-  --    end
-  --  },
-
   {
-    'codota/tabnine-nvim',
-    build = "./dl_binaries.sh",
+    'zbirenbaum/copilot.lua',
+    cmd = "Copilot",
+    event = "InsertEnter",
     config = function()
-      require('tabnine').setup({
-        disable_auto_comment = true,
-        accept_keymap = "<C-j>",
-        dismiss_keymap = "<C-]>",
-        debounce_ms = 800,
-        suggestion_color = { gui = "#7CD0A7", cterm = 244 },
-        exclude_filetypes = { "TelescopePrompt" },
-        log_file_path = nil, -- absolute path to Tabnine log file
+      vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#7CD0A7" })
+      require('copilot').setup({
+        panel = {
+          enabled = false,
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<C-l>",
+            accept_word = false,
+            accept_line = false,
+            next = "<C-]>",
+            prev = "<C-[>",
+            dismiss = "<C-q>",
+          },
+        },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = false,
+        },
+        copilot_node_command = 'node', -- Node.js version must be > 16.x
+        server_opts_overrides = {},
       })
     end
   },
+
+  -- {
+  --   'codota/tabnine-nvim',
+  --   build = "./dl_binaries.sh",
+  --   config = function()
+  --     require('tabnine').setup({
+  --       disable_auto_comment = true,
+  --       accept_keymap = "<C-j>",
+  --       dismiss_keymap = "<C-]>",
+  --       debounce_ms = 800,
+  --       suggestion_color = { gui = "#7CD0A7", cterm = 244 },
+  --       exclude_filetypes = { "TelescopePrompt" },
+  --       log_file_path = nil, -- absolute path to Tabnine log file
+  --     })
+
+  --     require('lualine').setup({
+  --       tabline = {
+  --           lualine_a = {},
+  --           lualine_b = {'branch'},
+  --           lualine_c = {'filename'},
+  --           lualine_x = {},
+  --           lualine_y = {},
+  --           lualine_z = {}
+  --       },
+  --       sections = {lualine_c = {'lsp_progress'}, lualine_x = {'tabnine'}}
+  --     })
+  --   end
+  -- },
 
   -- treesitter
   {
