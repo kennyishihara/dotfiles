@@ -114,6 +114,16 @@ local plugins = {
 
       require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
+      local cmp_nvim_lsp = require "cmp_nvim_lsp"
+
+      require("lspconfig").clangd.setup {
+        capabilities = cmp_nvim_lsp.default_capabilities(),
+        cmd = {
+          "clangd",
+          "--offset-encoding=utf-16",
+        },
+      }
+
       lsp.setup()
 
       local cmp = require('cmp')
