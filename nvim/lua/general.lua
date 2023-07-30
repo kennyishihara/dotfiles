@@ -21,5 +21,5 @@ vim.opt.completeopt= "menuone,noinsert,noselect"
 vim.opt.shortmess:append("c")
 vim.opt.diffopt:append("iwhite")
 vim.opt.showmatch = true
-vim.opt.wrap = true
+vim.opt.wrap = false
 vim.g.mapleader = " "

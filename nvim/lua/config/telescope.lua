@@ -1,6 +1,12 @@
-require'telescope'.setup{
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>f', builtin.find_files, {})
+vim.keymap.set('n', '<leader>l', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
+
+require 'telescope'.setup({
   defaults = {
-    path_display = { 'smart'},
+    path_display = { 'smart' },
     mappings = {
       i = {
         ['<C-j>']   = 'move_selection_next',
@@ -16,9 +22,9 @@ require'telescope'.setup{
       sort_lastused = true,
       mappings = {
         i = {
-          ["<c-d>"] = "delete_buffer",
+          ['<C-d>'] = "delete_buffer",
         }
       }
     }
   }
-}
+})
