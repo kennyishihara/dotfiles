@@ -1,9 +1,8 @@
 export PATH=$HOME/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
-export EDITOR='/opt/homebrew/opt/helix/bin/hx'
+export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
-export PATH=/Users/kennyishihara/Developer/zig-nightly/zig/build/stage3/bin:$PATH
-export PATH=/Users/kennyishihara/Developer/zls/zig-out/bin:$PATH
+export PATH=/Users/kennyishihara/Developer:$PATH
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -25,7 +24,7 @@ if [[ $(command -v lsd) ]]; then
   alias ls='lsd'
   alias l='ls -l'
   alias la='ls -a'
-  alias lla='ls -la'
+  alias lsa='ls -la'
   alias lt='ls --tree'
 fi
 
@@ -34,10 +33,14 @@ if [[ $(command -v hx) ]]; then
   alias h="hx"
 fi
 
+# neovim
+alias n="nvim"
+
 # zoxide
 eval "$(zoxide init zsh)"
 if [[ $(command -v z) ]]; then
   alias cd="z"
+  alias cdi="zi"
 fi
 
 # >>> conda initialize >>>
@@ -62,4 +65,5 @@ export SAM_CLI_TELEMETRY=0
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
 
-source /Users/kennyishihara/.config/broot/launcher/bash/br
+# opam configuration
+[[ ! -r /Users/kennyishihara/.opam/opam-init/init.zsh ]] || source /Users/kennyishihara/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
