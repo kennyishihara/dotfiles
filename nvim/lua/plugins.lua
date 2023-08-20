@@ -200,9 +200,9 @@ local plugins = {
             accept = "<C-l>",
             accept_word = false,
             accept_line = false,
-            next = "<C-]>",
-            prev = "<C-[>",
-            dismiss = "<C-q>",
+            next = "<F5>",
+            prev = "<F6>",
+            dismiss = "<C-]>",
           },
         },
         filetypes = {
@@ -248,6 +248,7 @@ local plugins = {
       require('mini.pairs').setup()
       require('mini.surround').setup()
       require('mini.move').setup()
+      require('mini.comment').setup()
     end
   },
 
