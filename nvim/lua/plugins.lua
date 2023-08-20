@@ -222,34 +222,6 @@ local plugins = {
     end
   },
 
-  -- {
-  --   'codota/tabnine-nvim',
-  --   build = "./dl_binaries.sh",
-  --   config = function()
-  --     require('tabnine').setup({
-  --       disable_auto_comment = true,
-  --       accept_keymap = "<C-j>",
-  --       dismiss_keymap = "<C-]>",
-  --       debounce_ms = 800,
-  --       suggestion_color = { gui = "#7CD0A7", cterm = 244 },
-  --       exclude_filetypes = { "TelescopePrompt" },
-  --       log_file_path = nil, -- absolute path to Tabnine log file
-  --     })
-
-  --     require('lualine').setup({
-  --       tabline = {
-  --           lualine_a = {},
-  --           lualine_b = {'branch'},
-  --           lualine_c = {'filename'},
-  --           lualine_x = {},
-  --           lualine_y = {},
-  --           lualine_z = {}
-  --       },
-  --       sections = {lualine_c = {'lsp_progress'}, lualine_x = {'tabnine'}}
-  --     })
-  --   end
-  -- },
-
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.2',
@@ -269,15 +241,35 @@ local plugins = {
   },
 
   {
-    "cohama/lexima.vim"
-  },
-
-  {
     "echasnovski/mini.nvim",
     version = false,
     config = function()
       require('mini.align').setup()
+      require('mini.pairs').setup()
+      require('mini.surround').setup()
+      require('mini.move').setup()
     end
+  },
+
+  {
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {},  -- Loads default behaviour
+          ["core.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.dirman"] = {      -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/Notes",
+              },
+            },
+          },
+        },
+      }
+    end,
   }
 }
 

@@ -1,3 +1,6 @@
+[battery]
+disabled = true
+
 [line_break]
 disabled = false
 
