@@ -38,7 +38,9 @@ local config = {
       { key = "&", mods = "SUPER|SHIFT", action=wezterm.action{CloseCurrentTab={confirm=true}}},
       { key = "d", mods = "SUPER",       action=wezterm.action{CloseCurrentPane={confirm=true}}},
       { key = "x", mods = "SUPER",       action=wezterm.action{CloseCurrentPane={confirm=true}}},
+      { key = "u", mods = "SUPER",       action = "ActivateCopyMode" },
+      { key = "i", mods = "SUPER",       action = wezterm.action({ PasteFrom = "PrimarySelection" }) },
     },
   }
 
-  return config
+return config
