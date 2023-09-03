@@ -244,7 +244,6 @@ local plugins = {
       require('mini.comment').setup()
       require('mini.splitjoin').setup()
       require('mini.indentscope').setup()
-      require('mini.animate').setup()
     end
   },
 
