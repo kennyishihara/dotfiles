@@ -1,8 +1,7 @@
-export PATH=$HOME/bin:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/kennyishihara/Library/Application\ Support/Coursier/bin:$PATH
+export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
-export PATH=/Users/kennyishihara/Developer:$PATH
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -13,7 +12,8 @@ bindkey "[C" forward-word
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
 
-alias backup='rsync -avP ~/Cryptomator/* /Volumes/Secure_USB/'
+export RESTIC_REPOSITORY="/Volumes/Backup/restic-repo"
+alias backup='rsync -avP ~/Cryptomator/Vault/SecureKey /Volumes/Secure_USB/'
 
 #mcfly
 export MCFLY_RESULTS=50
@@ -28,13 +28,10 @@ if [[ $(command -v lsd) ]]; then
   alias lt='ls --tree'
 fi
 
-# helix
-if [[ $(command -v hx) ]]; then
-  alias h="hx"
-fi
 
 # neovim
 alias n="nvim"
+alias h="nvim"
 
 # zoxide
 eval "$(zoxide init zsh)"
@@ -64,6 +61,3 @@ export SAM_CLI_TELEMETRY=0
 
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
-
-# opam configuration
-[[ ! -r /Users/kennyishihara/.opam/opam-init/init.zsh ]] || source /Users/kennyishihara/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

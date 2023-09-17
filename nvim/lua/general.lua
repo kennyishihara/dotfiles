@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 vim.opt.swapfile = false
 vim.opt.syntax = "on"
 vim.opt.autoindent = true
+vim.opt.autochdir = true
 vim.opt.shiftround = true
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -23,10 +24,10 @@ vim.opt.shortmess:append("c")
 vim.opt.diffopt:append("iwhite")
 vim.opt.showmatch = true
 vim.opt.wrap = false
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-vim.wo.foldtext =
-    [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
-vim.wo.fillchars = "fold: "
-vim.wo.foldnestmax = 3
-vim.wo.foldminlines = 1
+-- vim.wo.foldmethod = "indent"
+-- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.wo.foldtext =
+--     [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
+-- vim.wo.fillchars = "fold: "
+-- vim.wo.foldnestmax = 3
+-- vim.wo.foldminlines = 1
