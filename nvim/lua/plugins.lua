@@ -128,7 +128,7 @@ local plugins = {
           { name = 'nvim_lsp' },
         },
         mapping = {
-          ['<Space>'] = cmp.mapping.confirm({ select = false }),
+          ['<Enter>'] = cmp.mapping.confirm({ select = false }),
           ['<C-e>'] = cmp.mapping.abort(),
           ['<C-u>'] = cmp.mapping.scroll_docs(-4),
           ['<C-d>'] = cmp.mapping.scroll_docs(4),
@@ -227,12 +227,12 @@ local plugins = {
     end
   },
 
-  {
-    'ggandor/leap.nvim',
-    config = function()
-      require('leap').add_default_mappings()
-    end
-  },
+  -- {
+  --   'ggandor/leap.nvim',
+  --   config = function()
+  --     require('leap').add_default_mappings()
+  --   end
+  -- },
 
   {
     "echasnovski/mini.nvim",
@@ -240,32 +240,12 @@ local plugins = {
     config = function()
       require('mini.align').setup()
       require('mini.pairs').setup()
+      require('mini.surround').setup()
       require('mini.move').setup()
       require('mini.comment').setup()
       require('mini.splitjoin').setup()
       require('mini.indentscope').setup()
     end
-  },
-
-  {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {},  -- Loads default behaviour
-          ["core.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.dirman"] = {      -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/Notes",
-              },
-            },
-          },
-        },
-      }
-    end,
   }
 }
 
