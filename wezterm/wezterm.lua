@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 local config = {
-    color_scheme = "VSCodeDark+ (Gogh)",
+    color_scheme = "Kanagawa (Gogh)",
     font_size = 15.0,
     font = wezterm.font("Roboto Mono"),
     use_dead_keys = false,

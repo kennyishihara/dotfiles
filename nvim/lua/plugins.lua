@@ -13,12 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   {
-    'Mofiqul/vscode.nvim',
+    'rebelot/kanagawa.nvim',
     config = function()
-      require('vscode').setup({
-        italic_comments = true,
-      })
-      require('vscode').load()
+        vim.cmd("colorscheme kanagawa-dragon")
     end
   },
 
@@ -29,9 +26,7 @@ local plugins = {
     },
     config = function()
       require('lualine').setup({
-        options = {
-          theme = 'vscode'
-        }
+          theme = "Kanagawa (Gogh)"
       })
     end
   },
@@ -200,8 +195,6 @@ local plugins = {
           },
         },
         filetypes = {
-          yaml = false,
-          markdown = false,
           help = false,
           gitcommit = false,
           gitrebase = false,
