@@ -8,13 +8,15 @@ local config = {
     font_size = 15.0,
     font = wezterm.font("Roboto Mono"),
     use_dead_keys = false,
+    hide_tab_bar_if_only_one_tab = true,
     window_decorations = "RESIZE",
     line_height = 1.0,
     inactive_pane_hsb = {
         saturation = 0.24,
         brightness = 0.5,
     },
-    leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
+    -- While we test out tmux, change the leader to C-b
+    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
     keys = {
         { key = "a",          mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
         { key = "phys:Space", mods = "LEADER",      action = act.ActivateCommandPalette },
