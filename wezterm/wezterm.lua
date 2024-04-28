@@ -16,25 +16,26 @@ local config = {
     },
     leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 },
     keys = {
-        { key = "phys:Space", mods = "LEADER", action = act.ActivateCommandPalette },
-        { key = "c",          mods = "LEADER", action = "ActivateCopyMode" },
+        { key = "a",          mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
+        { key = "phys:Space", mods = "LEADER",      action = act.ActivateCommandPalette },
+        { key = "c",          mods = "LEADER",      action = "ActivateCopyMode" },
 
         -- Panes
-        { key = "s",          mods = "LEADER", action = act.SplitVertical { domain = "CurrentPaneDomain" } },
-        { key = "v",          mods = "LEADER", action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
-        { key = "h",          mods = "LEADER", action = act.ActivatePaneDirection("Left") },
-        { key = "j",          mods = "LEADER", action = act.ActivatePaneDirection("Down") },
-        { key = "k",          mods = "LEADER", action = act.ActivatePaneDirection("Up") },
-        { key = "l",          mods = "LEADER", action = act.ActivatePaneDirection("Right") },
-        { key = "q",          mods = "LEADER", action = act.CloseCurrentPane { confirm = true } },
-        { key = "o",          mods = "LEADER", action = act.TogglePaneZoomState },
-        { key = "r",          mods = "LEADER", action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
+        { key = "s",          mods = "LEADER",      action = act.SplitVertical { domain = "CurrentPaneDomain" } },
+        { key = "v",          mods = "LEADER",      action = act.SplitHorizontal { domain = "CurrentPaneDomain" } },
+        { key = "h",          mods = "LEADER",      action = act.ActivatePaneDirection("Left") },
+        { key = "j",          mods = "LEADER",      action = act.ActivatePaneDirection("Down") },
+        { key = "k",          mods = "LEADER",      action = act.ActivatePaneDirection("Up") },
+        { key = "l",          mods = "LEADER",      action = act.ActivatePaneDirection("Right") },
+        { key = "q",          mods = "LEADER",      action = act.CloseCurrentPane { confirm = true } },
+        { key = "o",          mods = "LEADER",      action = act.TogglePaneZoomState },
+        { key = "r",          mods = "LEADER",      action = act.ActivateKeyTable { name = "resize_pane", one_shot = false } },
 
         -- Tabs
-        { key = "t",          mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
-        { key = "[",          mods = "LEADER", action = act.ActivateTabRelative(-1) },
-        { key = "]",          mods = "LEADER", action = act.ActivateTabRelative(1) },
-        { key = "n",          mods = "LEADER", action = act.ShowTabNavigator },
+        { key = "t",          mods = "LEADER",      action = act.SpawnTab("CurrentPaneDomain") },
+        { key = "[",          mods = "LEADER",      action = act.ActivateTabRelative(-1) },
+        { key = "]",          mods = "LEADER",      action = act.ActivateTabRelative(1) },
+        { key = "n",          mods = "LEADER",      action = act.ShowTabNavigator },
         {
             key = "e",
             mods = "LEADER",
@@ -73,22 +74,22 @@ for i = 1, 9 do
 end
 
 config.key_tables = {
-  resize_pane = {
-    { key = "h",      action = act.AdjustPaneSize { "Left", 1 } },
-    { key = "j",      action = act.AdjustPaneSize { "Down", 1 } },
-    { key = "k",      action = act.AdjustPaneSize { "Up", 1 } },
-    { key = "l",      action = act.AdjustPaneSize { "Right", 1 } },
-    { key = "Escape", action = "PopKeyTable" },
-    { key = "Enter",  action = "PopKeyTable" },
-  },
-  move_tab = {
-    { key = "h",      action = act.MoveTabRelative(-1) },
-    { key = "j",      action = act.MoveTabRelative(-1) },
-    { key = "k",      action = act.MoveTabRelative(1) },
-    { key = "l",      action = act.MoveTabRelative(1) },
-    { key = "Escape", action = "PopKeyTable" },
-    { key = "Enter",  action = "PopKeyTable" },
-  }
+    resize_pane = {
+        { key = "h",      action = act.AdjustPaneSize { "Left", 1 } },
+        { key = "j",      action = act.AdjustPaneSize { "Down", 1 } },
+        { key = "k",      action = act.AdjustPaneSize { "Up", 1 } },
+        { key = "l",      action = act.AdjustPaneSize { "Right", 1 } },
+        { key = "Escape", action = "PopKeyTable" },
+        { key = "Enter",  action = "PopKeyTable" },
+    },
+    move_tab = {
+        { key = "h",      action = act.MoveTabRelative(-1) },
+        { key = "j",      action = act.MoveTabRelative(-1) },
+        { key = "k",      action = act.MoveTabRelative(1) },
+        { key = "l",      action = act.MoveTabRelative(1) },
+        { key = "Escape", action = "PopKeyTable" },
+        { key = "Enter",  action = "PopKeyTable" },
+    }
 }
 
 config.use_fancy_tab_bar = false

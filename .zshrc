@@ -2,6 +2,7 @@ export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
+export PATH=$HOME/Downloads/zig-macos-aarch64-0.12.0-dev.1583+97e23896a:$PATH
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -13,11 +14,13 @@ bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
 
 export RESTIC_REPOSITORY="/Volumes/Backup/restic-repo"
-alias backup='rsync -avP ~/Cryptomator/Vault/SecureKey /Volumes/Secure_USB/'
 
 #mcfly
-export MCFLY_RESULTS=50
+export MCFLY_RESULTS=20
 export MCFLY_INTERFACE_VIEW=BOTTOM
+export MCFLY_KEY_SCHEME=vim
+export MCFLY_RESULTS_SORT=LAST_RUN
+export MCFLY_HISTORY_LIMIT=10000
 
 # lsd
 if [[ $(command -v lsd) ]]; then
@@ -32,6 +35,9 @@ fi
 # neovim
 alias n="nvim"
 alias h="nvim"
+
+# yazi
+alias y="yazi"
 
 # zoxide
 eval "$(zoxide init zsh)"
