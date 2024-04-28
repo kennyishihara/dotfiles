@@ -31,6 +31,26 @@ if [[ $(command -v lsd) ]]; then
   alias lt='ls --tree'
 fi
 
+# tmux
+alias t="tmux"
+alias tn="tmux new -s"
+alias tls="tmux ls"
+alias ta="tmux attach -t"
+# tmux detach or delete
+function _delete_or_detach() {
+    if [[ -n "${BUFFER}" ]]
+    then
+        zle delete-char-or-list
+    else
+        tmux detach-client
+    fi
+}
+if [[ -n "$TMUX" ]]
+then
+  setopt ignoreeof
+  zle -N _delete_or_detach
+  bindkey "^D" _delete_or_detach
+fi
 
 # neovim
 alias n="nvim"
