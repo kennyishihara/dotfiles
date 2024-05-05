@@ -4,8 +4,6 @@ export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
 export PATH=$HOME/Downloads/zig-macos-aarch64-0.12.0-dev.1583+97e23896a:$PATH
 
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
 source $ZSH/oh-my-zsh.sh
 
 bindkey "[D" backward-word
@@ -54,7 +52,6 @@ fi
 
 # neovim
 alias n="nvim"
-alias h="nvim"
 
 # yazi
 alias y="yazi"
@@ -87,3 +84,5 @@ export SAM_CLI_TELEMETRY=0
 
 eval "$(starship init zsh)"
 eval "$(mcfly init zsh)"
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
