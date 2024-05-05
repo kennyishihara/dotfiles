@@ -1,9 +1,8 @@
 export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
-export ZSH="/Users/kennyishihara/.oh-my-zsh"
 export LANG=en_US.UTF-8
-export PATH=$HOME/Downloads/zig-macos-aarch64-0.12.0-dev.1583+97e23896a:$PATH
 
+export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 bindkey "[D" backward-word
