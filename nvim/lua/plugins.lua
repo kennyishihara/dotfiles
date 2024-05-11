@@ -288,6 +288,33 @@ local plugins = {
             require('mini.indentscope').setup()
         end
     },
+
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*", -- recommended, use latest release instead of latest commit
+        lazy = true,
+        ft = "markdown",
+        keys = {
+        { "<leader>on", "<cmd>ObsidianNew<cr>", desc = "New Obsidian note", mode = "n" },
+        { "<leader>oo", "<cmd>ObsidianSearch<cr>", desc = "Search Obsidian notes", mode = "n" },
+        { "<leader>ot", "<cmd>ObsidianTags<cr>", desc = "Search tags", mode = "n" },
+        { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Quick Switch", mode = "n" },
+        { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "Show location list of backlinks", mode = "n" },
+        { "<leader>of", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link under cursor", mode = "n" },
+        },
+        dependencies = {
+            -- Required.
+            "nvim-lua/plenary.nvim",
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "~/Documents/Obsidian/personal",
+                },
+            },
+        },
+    }
 }
 
 local opts = {}
