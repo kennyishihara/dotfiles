@@ -285,7 +285,7 @@ local plugins = {
     {
         "epwalsh/obsidian.nvim",
         version = "*", -- recommended, use latest release instead of latest commit
-        lazy = true,
+        lazy = false,
         ft = "markdown",
         keys = {
             { "<leader>on", "<cmd>ObsidianNew<cr>",         desc = "New Obsidian note",               mode = "n" },
@@ -312,6 +312,14 @@ local plugins = {
             }
         },
         config = true
+    },
+
+    {
+        "lervag/vimtex",
+        lazy = false,
+        config = function()
+            vim.g.vimtex_view_method = 'sioyek'
+        end
     }
 }
 
