@@ -219,51 +219,15 @@ local plugins = {
         end
     },
 
-    -- {
-    --     'zbirenbaum/copilot.lua',
-    --     cmd = "Copilot",
-    --     event = "InsertEnter",
-    --     config = function()
-    --         vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#7CD0A7" })
-    --         require('copilot').setup({
-    --             panel = {
-    --                 enabled = false,
-    --             },
-    --             suggestion = {
-    --                 enabled = true,
-    --                 auto_trigger = true,
-    --                 debounce = 75,
-    --                 keymap = {
-    --                     accept = "<C-l>",
-    --                     accept_word = false,
-    --                     accept_line = false,
-    --                     next = "<C-;>",
-    --                     prev = "<C-\'>",
-    --                     dismiss = "<C-x>",
-    --                 },
-    --             },
-    --             filetypes = {
-    --                 help = false,
-    --                 gitcommit = false,
-    --                 gitrebase = false,
-    --                 hgcommit = false,
-    --                 svn = false,
-    --                 cvs = false,
-    --                 ["."] = false,
-    --             },
-    --             copilot_node_command = 'node', -- Node.js version must be > 16.x
-    --             server_opts_overrides = {},
-    --         })
-    --     end
-    -- },
     {
         'Exafunction/codeium.vim',
         event = 'BufEnter',
         config = function()
             -- Change '<C-g>' here to any keycode you like.
             vim.g.codeium_no_map_tab = 1
+            vim.g.codeium_manual = 1
             vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-            vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+            vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleOrComplete']() end,
                 { expr = true, silent = true })
             vim.keymap.set('i', '<C-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
                 { expr = true, silent = true })
