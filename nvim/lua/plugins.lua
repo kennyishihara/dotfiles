@@ -1,13 +1,13 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -219,41 +219,55 @@ local plugins = {
         end
     },
 
+    -- {
+    --     'zbirenbaum/copilot.lua',
+    --     cmd = "Copilot",
+    --     event = "InsertEnter",
+    --     config = function()
+    --         vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#7CD0A7" })
+    --         require('copilot').setup({
+    --             panel = {
+    --                 enabled = false,
+    --             },
+    --             suggestion = {
+    --                 enabled = true,
+    --                 auto_trigger = true,
+    --                 debounce = 75,
+    --                 keymap = {
+    --                     accept = "<C-l>",
+    --                     accept_word = false,
+    --                     accept_line = false,
+    --                     next = "<C-;>",
+    --                     prev = "<C-\'>",
+    --                     dismiss = "<C-x>",
+    --                 },
+    --             },
+    --             filetypes = {
+    --                 help = false,
+    --                 gitcommit = false,
+    --                 gitrebase = false,
+    --                 hgcommit = false,
+    --                 svn = false,
+    --                 cvs = false,
+    --                 ["."] = false,
+    --             },
+    --             copilot_node_command = 'node', -- Node.js version must be > 16.x
+    --             server_opts_overrides = {},
+    --         })
+    --     end
+    -- },
     {
-        'zbirenbaum/copilot.lua',
-        cmd = "Copilot",
-        event = "InsertEnter",
+        'Exafunction/codeium.vim',
+        event = 'BufEnter',
         config = function()
-            vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#7CD0A7" })
-            require('copilot').setup({
-                panel = {
-                    enabled = false,
-                },
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = true,
-                    debounce = 75,
-                    keymap = {
-                        accept = "<C-l>",
-                        accept_word = false,
-                        accept_line = false,
-                        next = "<F5>",
-                        prev = "<F6>",
-                        dismiss = "<C-]>",
-                    },
-                },
-                filetypes = {
-                    help = false,
-                    gitcommit = false,
-                    gitrebase = false,
-                    hgcommit = false,
-                    svn = false,
-                    cvs = false,
-                    ["."] = false,
-                },
-                copilot_node_command = 'node', -- Node.js version must be > 16.x
-                server_opts_overrides = {},
-            })
+            -- Change '<C-g>' here to any keycode you like.
+            vim.g.codeium_no_map_tab = 1
+            vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+            vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+                { expr = true, silent = true })
+            vim.keymap.set('i', '<C-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+                { expr = true, silent = true })
+            vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
         end
     },
 
