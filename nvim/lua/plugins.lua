@@ -35,7 +35,15 @@ local plugins = {
         },
         config = function()
             require('lualine').setup({
-                theme = "Kanagawa (Gogh)"
+                theme = "Kanagawa (Gogh)",
+                sections = {
+                    lualine_c = {
+                        {
+                            'filename',
+                            path = 3
+                        },
+                    }
+                }
             })
         end
     },
@@ -49,7 +57,7 @@ local plugins = {
             require('trouble').setup {
                 diagnostic_signs = true,
             }
-            vim.api.nvim_set_keymap("n", "<F2>", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+            vim.api.nvim_set_keymap("n", "<F1>", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
         end
     },
 
@@ -89,7 +97,7 @@ local plugins = {
 
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
+        branch = 'v4.x',
         lazy = true,
         config = false,
         init = function()
@@ -225,7 +233,7 @@ local plugins = {
         config = function()
             -- Change '<C-g>' here to any keycode you like.
             vim.g.codeium_no_map_tab = 1
-            vim.g.codeium_manual = 1
+            -- vim.g.codeium_manual = 1
             vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
             vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleOrComplete']() end,
                 { expr = true, silent = true })
@@ -299,6 +307,32 @@ local plugins = {
         config = function()
             vim.g.vimtex_view_method = 'sioyek'
         end
+    },
+
+    {
+    "scalameta/nvim-metals",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    ft = { "scala", "sbt", "java" },
+    opts = function()
+        local metals_config = require("metals").bare_config()
+        metals_config.on_attach = function(client, bufnr)
+        -- your on_attach function
+        end
+
+        return metals_config
+    end,
+    config = function(self, metals_config)
+        local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+        vim.api.nvim_create_autocmd("FileType", {
+        pattern = self.ft,
+        callback = function()
+            require("metals").initialize_or_attach(metals_config)
+        end,
+        group = nvim_metals_group,
+        })
+    end
     }
 }
 
