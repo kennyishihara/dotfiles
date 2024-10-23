@@ -1,16 +1,14 @@
-export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+export ZSH="$HOME/.oh-my-zsh"
+export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
 
-export ZSH=$HOME/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word
 bindkey "^[a" beginning-of-line
 bindkey "^[e" end-of-line
-
-export RESTIC_REPOSITORY="/Volumes/Backup/restic-repo"
 
 #mcfly
 export MCFLY_RESULTS=20
@@ -27,6 +25,9 @@ if [[ $(command -v lsd) ]]; then
   alias lsa='ls -la'
   alias lt='ls --tree'
 fi
+
+# neovim
+alias n="nvim"
 
 # tmux
 alias t="tmux"
@@ -48,9 +49,6 @@ then
   zle -N _delete_or_detach
   bindkey "^D" _delete_or_detach
 fi
-
-# neovim
-alias n="nvim"
 
 # yazi
 alias y="yazi"

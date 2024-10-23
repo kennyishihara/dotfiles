@@ -1,0 +1,10 @@
+(
+    selection_bg: Some("Black"),
+    selection_fg: Some("White"),
+    cmdbar_bg: Some("Black"),
+    cmdbar_extra_lines_bg: Some("Black"),
+    commit_hash: Some("White"),
+    commit_time: Some("White"),
+    commit_author: Some("White"),
+    danger_fg: Some("Red"),
+)

@@ -24,7 +24,7 @@ vim.opt.shortmess:append("c")
 vim.opt.diffopt:append("iwhite")
 vim.opt.showmatch = true
 vim.opt.wrap = false
-vim.o.termguicolors = false
+vim.o.termguicolors = true
 
 -- For md files, use conceal to hide the markdown syntax
 vim.opt.conceallevel = 0
