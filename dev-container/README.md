@@ -1,6 +1,6 @@
 # Development Environment Container
 
-Personalized development environment to use in remote servers like Runpod.ai.
+Personalized development environment to use in remote servers like Runpod.ai. Simpler version of my main dotfiles.
 
 # Build
 
