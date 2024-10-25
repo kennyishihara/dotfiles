@@ -1,9 +1,6 @@
-export ZSH="$HOME/.oh-my-zsh"
-export PATH=$HOME/bin:$HOME/Developer:/opt/homebrew/anaconda3/bin:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
-
-source $ZSH/oh-my-zsh.sh
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word
@@ -59,22 +56,6 @@ if [[ $(command -v z) ]]; then
   alias cd="z"
   alias cdi="zi"
 fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# Run conda config --set changeps1 false to hide the env name
-__conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
 # AWS SAM disable telemetry
 export SAM_CLI_TELEMETRY=0
