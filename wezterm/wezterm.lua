@@ -5,7 +5,7 @@ local act = wezterm.action
 
 local config = {
     color_scheme = "Catppuccin Mocha",
-    font_size = 13.0,
+    font_size = 14.0,
     font = wezterm.font("Roboto Mono"),
     use_dead_keys = false,
     hide_tab_bar_if_only_one_tab = true,
