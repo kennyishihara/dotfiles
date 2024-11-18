@@ -2,12 +2,11 @@ export PATH=$HOME/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/home
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
 
-bindkey "[D" backward-word
-bindkey "[C" forward-word
-bindkey "^[a" beginning-of-line
-bindkey "^[e" end-of-line
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 #mcfly
+export MCFLY_DISABLE_MENU=TRUE
 export MCFLY_RESULTS=20
 export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_KEY_SCHEME=vim
