@@ -74,6 +74,9 @@ local plugins = {
             require('nvim-tree').setup {
                 trash = {
                     cmd = "trash"
+                },
+                update_focused_file = {
+                    enable = true,
                 }
             }
             vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
@@ -266,6 +269,8 @@ local plugins = {
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
             require('mini.indentscope').setup()
+            require('mini.jump2d').setup()
+            require('mini.jump').setup()
         end
     },
 

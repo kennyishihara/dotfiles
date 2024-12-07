@@ -17,7 +17,7 @@ vim.opt.hlsearch = false
 vim.opt.rnu = true
 vim.opt.nu = true
 vim.opt.laststatus = 2
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 vim.opt.updatetime = 300
 vim.opt.completeopt= "menuone,noinsert,noselect"
 vim.opt.shortmess:append("c")
