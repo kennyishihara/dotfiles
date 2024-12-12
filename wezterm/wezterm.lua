@@ -1,5 +1,3 @@
--- Wezterm config inspired by theopn https://github.com/theopn/dotfiles/tree/main/wezterm
-
 local wezterm = require("wezterm")
 local act = wezterm.action
 
@@ -34,7 +32,6 @@ local config = {
         bottom = "0.3cell",
     },
     adjust_window_size_when_changing_font_size = false,
-
 }
 
 -- Move around tabs with index

@@ -76,8 +76,12 @@ local plugins = {
                     cmd = "trash"
                 },
                 update_focused_file = {
-                    enable = true,
-                }
+                    -- enables the feature
+                    enable      = true,
+                    -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
+                    -- only relevant when `update_focused_file.enable` is true
+                    update_cwd  = true,
+                },
             }
             vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
         end
@@ -269,8 +273,14 @@ local plugins = {
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
             require('mini.indentscope').setup()
-            require('mini.jump2d').setup()
             require('mini.jump').setup()
+        end
+    },
+
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            require('leap').add_default_mappings()
         end
     },
 
