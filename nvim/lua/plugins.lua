@@ -57,7 +57,7 @@ local plugins = {
             require('trouble').setup {
                 diagnostic_signs = true,
             }
-            vim.api.nvim_set_keymap("n", "<F1>", "<cmd>TroubleToggle<cr>", { silent = true, noremap = true })
+            vim.api.nvim_set_keymap("n", "<F1>", "<cmd>Trouble diagnostics toggle<cr>", { silent = true, noremap = true })
         end
     },
 
