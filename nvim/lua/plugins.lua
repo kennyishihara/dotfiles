@@ -75,13 +75,13 @@ local plugins = {
                 trash = {
                     cmd = "trash"
                 },
-                update_focused_file = {
-                    -- enables the feature
-                    enable      = true,
-                    -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
-                    -- only relevant when `update_focused_file.enable` is true
-                    update_cwd  = true,
-                },
+                -- update_focused_file = {
+                --     -- enables the feature
+                --     enable      = true,
+                --     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
+                --     -- only relevant when `update_focused_file.enable` is true
+                --     update_cwd  = true,
+                -- },
             }
             vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
         end
