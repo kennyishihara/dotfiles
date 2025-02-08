@@ -235,19 +235,84 @@ local plugins = {
     },
 
     {
-        'Exafunction/codeium.vim',
-        event = 'BufEnter',
+        "Exafunction/codeium.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+        },
         config = function()
-            -- Change '<C-g>' here to any keycode you like.
-            vim.g.codeium_no_map_tab = 1
-            -- vim.g.codeium_manual = 1
-            vim.keymap.set('i', '<C-l>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-            vim.keymap.set('i', '<C-j>', function() return vim.fn['codeium#CycleOrComplete']() end,
-                { expr = true, silent = true })
-            vim.keymap.set('i', '<C-k>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
-                { expr = true, silent = true })
-            vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+            require("codeium").setup({
+                virtual_text = {
+                    enabled = true,
+                    key_bindings = {
+                        accept = "<C-l>",
+                        accept_word = false,
+                        accept_line = false,
+                        clear = "<C-x>",
+                        next = "<C-j>",
+                        prev = "<C-k>"
+                    }
+                }
+            })
         end
+    },
+    {
+        "yetone/avante.nvim",
+        event = "VeryLazy",
+        lazy = false,
+        version = false, -- Set this to "*" to always pull the latest release version, or set it to false to update to the latest code changes.
+        opts = {
+            -- add any opts here
+            -- for example
+            provider = "openai",
+            openai = {
+                endpoint = "https://api.openai.com/v1",
+                model = "gpt-4o-mini", -- your desired model (or use gpt-4o, etc.)
+                timeout = 30000,       -- timeout in milliseconds
+                temperature = 0,       -- adjust if needed
+                max_tokens = 4096,
+            },
+        },
+        -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+        build = "make",
+        -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+        dependencies = {
+            "stevearc/dressing.nvim",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+            --- The below dependencies are optional,
+            "echasnovski/mini.pick",         -- for file_selector provider mini.pick
+            "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+            "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+            "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+            "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+            "zbirenbaum/copilot.lua",        -- for providers='copilot'
+            {
+                -- support for image pasting
+                "HakonHarnes/img-clip.nvim",
+                event = "VeryLazy",
+                opts = {
+                    -- recommended settings
+                    default = {
+                        embed_image_as_base64 = false,
+                        prompt_for_file_name = false,
+                        drag_and_drop = {
+                            insert_mode = true,
+                        },
+                        -- required for Windows users
+                        use_absolute_path = true,
+                    },
+                },
+            },
+            {
+                -- Make sure to set this up properly if you have lazy=true
+                'MeanderingProgrammer/render-markdown.nvim',
+                opts = {
+                    file_types = { "markdown", "Avante" },
+                },
+                ft = { "markdown", "Avante" },
+            },
+        },
     },
 
     {
@@ -281,9 +346,9 @@ local plugins = {
         "ggandor/leap.nvim",
         config = function()
             require('leap').setup({})
-            vim.keymap.set({'n', 'x', 'o'}, 'z',  '<Plug>(leap-forward)')
-            vim.keymap.set({'n', 'x', 'o'}, 'Z',  '<Plug>(leap-backward)')
-            vim.keymap.set({'n', 'x', 'o'}, 'zs', '<Plug>(leap-from-window)')
+            vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
+            vim.keymap.set({ 'n', 'x', 'o' }, 'Z', '<Plug>(leap-backward)')
+            vim.keymap.set({ 'n', 'x', 'o' }, 'zs', '<Plug>(leap-from-window)')
         end
     },
 
