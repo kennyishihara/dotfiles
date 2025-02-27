@@ -263,26 +263,37 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
+        lazy = false,
         config = function()
             require("codecompanion").setup({
                 strategies = {
                     chat = {
-                        adapter = "openai",
+                        adapter = "lmstudio"
                     },
                     inline = {
-                        adapter = "openai",
+                        adapter = "lmstudio"
                     },
+                    agent = {
+                        adapter = "lmstudio"
+                    }
                 },
                 adapters = {
-                    openai = function()
-                        return require("codecompanion.adapters").extend("openai", {
+                    lmstudio = function()
+                        return require("codecompanion.adapters").extend("openai_compatible", {
+                            env = {
+                                url = "http://localhost:11434",    -- optional: default value is ollama url http://127.0.0.1:11434
+                                chat_url = "/v1/chat/completions", -- optional: default value, override if different
+                            },
                             schema = {
                                 model = {
-                                    default = "gpt-4o-mini"
+                                    default = "deepseek-coder-v2-lite-instruct-mlx", -- define llm model to be used
                                 },
                             },
                         })
                     end,
+                    opts = {
+                        show_defaults = false
+                    },
                 },
             })
             vim.api.nvim_set_keymap('n', '<leader>aa', ':CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
@@ -350,7 +361,7 @@ local plugins = {
                 group = nvim_metals_group,
             })
         end
-    }
+    },
 }
 
 local opts = {}
