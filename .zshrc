@@ -1,6 +1,7 @@
-export PATH=$HOME/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
+export RESTIC_REPOSITORY="Restic/restic-repo"
 
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
