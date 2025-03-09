@@ -22,13 +22,6 @@ local plugins = {
     },
 
     {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function() vim.fn["mkdp#util#install"]() end,
-    },
-
-    {
         'nvim-lualine/lualine.nvim',
         dependencies = {
             'kyazdani42/nvim-web-devicons'
@@ -58,32 +51,6 @@ local plugins = {
                 diagnostic_signs = true,
             }
             vim.api.nvim_set_keymap("n", "<F1>", "<cmd>Trouble diagnostics toggle<cr>", { silent = true, noremap = true })
-        end
-    },
-
-    {
-        'stevearc/dressing.nvim',
-        opts = {}
-    },
-
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            vim.g.nvim_tree_indent_markers = 1
-            vim.g.nvim_tree_highlight_opened_files = 1
-            require('nvim-tree').setup {
-                trash = {
-                    cmd = "trash"
-                },
-                -- update_focused_file = {
-                --     -- enables the feature
-                --     enable      = true,
-                --     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
-                --     -- only relevant when `update_focused_file.enable` is true
-                --     update_cwd  = true,
-                -- },
-            }
-            vim.api.nvim_set_keymap('n', '<leader>t', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
         end
     },
 
@@ -118,78 +85,6 @@ local plugins = {
         'williamboman/mason.nvim',
         lazy = false,
         config = true,
-    },
-
-    -- Autocompletion
-    {
-        'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
-        dependencies = {
-            { 'L3MON4D3/LuaSnip' },
-        },
-        config = function()
-            -- Here is where you configure the autocompletion settings.
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_cmp()
-
-            -- And you can configure cmp even more, if you want to.
-            local cmp = require('cmp')
-            local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
-            local cmp_action = lsp_zero.cmp_action()
-
-            cmp.setup({
-                sources = {
-                    { name = 'nvim_lsp' },
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<Enter>'] = cmp.mapping.confirm({ select = false }),
-                    ['<C-e>'] = cmp.mapping.abort(),
-                    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-                    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-                    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-                    ['<C-p>'] = cmp.mapping(function()
-                        if cmp.visible() then
-                            cmp.select_prev_item(cmp_select_opts)
-                        else
-                            cmp.complete()
-                        end
-                    end),
-                    ['<C-n>'] = cmp.mapping(function()
-                        if cmp.visible() then
-                            cmp.select_next_item(cmp_select_opts)
-                        else
-                            cmp.complete()
-                        end
-                    end),
-                }),
-                snippet = {
-                    expand = function(args)
-                        require('luasnip').lsp_expand(args.body)
-                    end,
-                },
-                window = {
-                    documentation = {
-                        max_height = 15,
-                        max_width = 60,
-                    }
-                },
-                formatting = {
-                    fields = { 'abbr', 'menu', 'kind' },
-                    format = function(entry, item)
-                        local short_name = {
-                            nvim_lsp = 'LSP',
-                            nvim_lua = 'nvim'
-                        }
-
-                        local menu_name = short_name[entry.source.name] or entry.source.name
-
-                        item.menu = string.format('[%s]', menu_name)
-                        return item
-                    end,
-                },
-            })
-        end
     },
 
     -- LSP
@@ -302,10 +197,11 @@ local plugins = {
 
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.6',
+        tag = '0.1.8',
         dependencies = {
             'nvim-lua/plenary.nvim',
             'debugloop/telescope-undo.nvim',
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
         },
         config = function()
             require('config.telescope')
@@ -316,14 +212,24 @@ local plugins = {
         "echasnovski/mini.nvim",
         version = false,
         config = function()
+            require('mini.ai').setup()
             require('mini.align').setup()
             require('mini.pairs').setup()
             require('mini.surround').setup()
-            require('mini.move').setup()
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
             require('mini.indentscope').setup()
             require('mini.jump').setup()
+            require('mini.files').setup()
+            require('mini.completion').setup()
+            require('mini.icons').setup()
+            require('mini.git').setup()
+            vim.keymap.set("n", "<leader>t", function()
+                if not require("mini.files").close() then
+                    -- If it wasn't open, then open it
+                    require("mini.files").open()
+                end
+            end, { desc = "Toggle mini.files explorer" })
         end
     },
 
@@ -334,32 +240,6 @@ local plugins = {
             vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'Z', '<Plug>(leap-backward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'zs', '<Plug>(leap-from-window)')
-        end
-    },
-
-    {
-        "scalameta/nvim-metals",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        ft = { "scala", "sbt", "java" },
-        opts = function()
-            local metals_config = require("metals").bare_config()
-            metals_config.on_attach = function(client, bufnr)
-                -- your on_attach function
-            end
-
-            return metals_config
-        end,
-        config = function(self, metals_config)
-            local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = self.ft,
-                callback = function()
-                    require("metals").initialize_or_attach(metals_config)
-                end,
-                group = nvim_metals_group,
-            })
         end
     },
 }

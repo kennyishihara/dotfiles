@@ -16,8 +16,8 @@ local config = {
         saturation = 0.24,
         brightness = 0.5,
     },
-    -- While we test out tmux, change the leader to C-b
-    leader = { key = "b", mods = "CTRL", timeout_milliseconds = 1000 },
+    -- While we test out tmux, change the leader to random
+    leader = { key = "`", mods = "CTRL", timeout_milliseconds = 1000 },
     keys = {
         { key = "a",        mods = "LEADER|CTRL", action = act.SendKey { key = "a", mods = "CTRL" } },
         { key = "q",        mods = "LEADER",      action = act.CloseCurrentPane { confirm = true } },
