@@ -1,10 +1,12 @@
 export PATH=$HOME/bin:$HOME/.local/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export RESTIC_REPOSITORY="Restic/restic-repo"
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+# Use vi binding for CLI
+export KEYTIMEOUT=1
+bindkey -v
 
 #mcfly
 export MCFLY_DISABLE_MENU=TRUE
@@ -12,7 +14,7 @@ export MCFLY_RESULTS=20
 export MCFLY_INTERFACE_VIEW=BOTTOM
 export MCFLY_KEY_SCHEME=vim
 export MCFLY_RESULTS_SORT=LAST_RUN
-export MCFLY_HISTORY_LIMIT=10000
+export MCFLY_HISTORY_LIMIT=100000
 
 # lsd
 if [[ $(command -v lsd) ]]; then
@@ -57,10 +59,16 @@ if [[ $(command -v z) ]]; then
   alias cdi="zi"
 fi
 
-# AWS SAM disable telemetry
-export SAM_CLI_TELEMETRY=0
-
-eval "$(starship init zsh)"
+# Check that the function `starship_zle-keymap-select()` is defined.
+# xref: https://github.com/starship/starship/issues/3418
+type starship_zle-keymap-select >/dev/null || \
+  {
+    echo "Load starship"
+    eval "$(starship init zsh)"
+  }
 eval "$(mcfly init zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/kennyishihara/.cache/lm-studio/bin"
