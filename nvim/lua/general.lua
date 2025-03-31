@@ -28,3 +28,5 @@ vim.o.termguicolors = false
 
 -- For md files, use conceal to hide the markdown syntax
 vim.opt.conceallevel = 0
+
+vim.diagnostic.config({ virtual_lines = { current_line = true } })
