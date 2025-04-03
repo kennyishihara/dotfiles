@@ -165,12 +165,10 @@ local plugins = {
             require('mini.surround').setup()
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
-            require('mini.indentscope').setup()
             require('mini.jump').setup()
             require('mini.files').setup()
             require('mini.completion').setup()
             require('mini.icons').setup()
-            require('mini.starter').setup()
             require('mini.snippets').setup()
             vim.keymap.set("n", "<leader>t", function()
                 if not require("mini.files").close() then
