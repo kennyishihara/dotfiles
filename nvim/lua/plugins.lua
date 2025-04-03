@@ -12,14 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    {
-        'catppuccin/nvim',
-        priority = 1000,
-        name = 'catppuccin',
-        config = function()
-            vim.cmd("colorscheme catppuccin-mocha")
-        end
-    },
 
     {
         'nvim-lualine/lualine.nvim',
@@ -28,7 +20,6 @@ local plugins = {
         },
         config = function()
             require('lualine').setup({
-                theme = "Kanagawa (Gogh)",
                 sections = {
                     lualine_c = {
                         {
