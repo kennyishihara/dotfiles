@@ -42,7 +42,8 @@ local plugins = {
                 diagnostic_signs = true,
             }
             vim.api.nvim_set_keymap("n", "<F1>", "<cmd>Trouble diagnostics toggle<cr>", { silent = true, noremap = true })
-            vim.api.nvim_set_keymap("n", "<F5>", "<cmd>Trouble symbols toggle focus=false<cr>", { silent = true, noremap = true })
+            vim.api.nvim_set_keymap("n", "<F5>", "<cmd>Trouble symbols toggle focus=false<cr>",
+                { silent = true, noremap = true })
         end
     },
 
@@ -105,29 +106,6 @@ local plugins = {
                         local lua_opts = lsp_zero.nvim_lua_ls()
                         require('lspconfig').lua_ls.setup(lua_opts)
                     end,
-                }
-            })
-        end
-    },
-
-    {
-        "Exafunction/codeium.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "hrsh7th/nvim-cmp",
-        },
-        config = function()
-            require("codeium").setup({
-                virtual_text = {
-                    enabled = true,
-                    key_bindings = {
-                        accept = "<C-l>",
-                        accept_word = false,
-                        accept_line = false,
-                        clear = "<C-x>",
-                        next = "<C-j>",
-                        prev = "<C-k>"
-                    }
                 }
             })
         end
