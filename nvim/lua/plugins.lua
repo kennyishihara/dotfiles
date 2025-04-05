@@ -21,7 +21,7 @@ local plugins = {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = "auto",
+                    theme = "ayu_dark",
                 },
                 sections = {
                     lualine_c = {
