@@ -62,51 +62,22 @@ local plugins = {
         end
     },
 
+    -- Mason for LSP server management
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v4.x',
-        lazy = true,
-        config = false,
-        init = function()
-            -- Disable automatic setup, we are doing it manually
-            vim.g.lsp_zero_extend_cmp = 0
-            vim.g.lsp_zero_extend_lspconfig = 0
-        end,
+        'williamboman/mason.nvim',
+        cmd = 'Mason',
+        config = function()
+            require("mason").setup()
+        end
     },
 
-    -- LSP
+    -- Mason-lspconfig for easy installation of language servers
     {
-        'neovim/nvim-lspconfig',
-        cmd = { 'LspInfo', 'LspInstall', 'LspStart' },
-        event = { 'BufReadPre', 'BufNewFile' },
-        dependencies = {
-            { 'williamboman/mason.nvim' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'williamboman/mason-lspconfig.nvim' },
-        },
+        'williamboman/mason-lspconfig.nvim',
+        dependencies = { 'williamboman/mason.nvim' },
         config = function()
-            require("mason").setup({
-                lazy = false,
-                config = true
-            })
-            local lsp_zero = require('lsp-zero')
-            lsp_zero.extend_lspconfig()
-            lsp_zero.on_attach(function(client, bufnr)
-                lsp_zero.default_keymaps({ buffer = bufnr })
-            end)
-
             require('mason-lspconfig').setup({
                 ensure_installed = {},
-                handlers = {
-                    function(server_name)
-                        require('lspconfig')[server_name].setup({})
-                    end,
-
-                    lua_ls = function()
-                        local lua_opts = lsp_zero.nvim_lua_ls()
-                        require('lspconfig').lua_ls.setup(lua_opts)
-                    end,
-                }
             })
         end
     },
