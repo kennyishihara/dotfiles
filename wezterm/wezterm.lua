@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 
 local config = {
-    color_scheme = "Darkside",
+    color_scheme = "Belge",
     font_size = 16.0,
     font = wezterm.font("Roboto Mono"),
     use_dead_keys = false,

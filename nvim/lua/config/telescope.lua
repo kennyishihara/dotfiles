@@ -1,9 +1,7 @@
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>f', builtin.find_files, {})
-vim.keymap.set('n', '<leader>l', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>b', builtin.buffers, {})
-vim.keymap.set('n', '<leader>h', builtin.help_tags, {})
-vim.keymap.set('n', '<leader>u', "<cmd>Telescope undo<cr>")
+vim.keymap.set('n', '<F1>', builtin.find_files, {})
+vim.keymap.set('n', '<F2>', builtin.buffers, {})
+vim.keymap.set('n', '<F3>', builtin.live_grep, {})
 
 
 require 'telescope'.setup({
