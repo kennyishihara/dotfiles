@@ -1,6 +1,10 @@
+
 -- lua/config/lsp.lua
 
 -- Global mappings for diagnostics
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 
 -- Use LspAttach autocommand to set up mappings once a server attaches to a buffer
@@ -9,12 +13,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local buffer = ev.buf
     local opts = { buffer = buffer, noremap = true, silent = true }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format({ async = true })
+    end, opts)
   end,
 })
 
@@ -43,27 +53,14 @@ end
 
 load_lsp_configs()
 
--- Automatically discover all filetypes from loaded LSP configurations
-local file_types = {}
-for _, config in pairs(servers) do
-  if config.filetypes then
-    for _, ft in ipairs(config.filetypes) do
-      if not vim.tbl_contains(file_types, ft) then
-        table.insert(file_types, ft)
-      end
-    end
-  end
-end
-
 -- Handle file type detection and LSP startup
 local function start_lsp_for_buffer(bufnr, filetype)
   bufnr = bufnr or vim.api.nvim_get_current_buf()
   filetype = filetype or vim.bo[bufnr].filetype
 
-  -- Find the appropriate server for this filetype
+  -- Map filetypes to LSP server names dynamically based on loaded configs
   for server_name, config in pairs(servers) do
     if config.filetypes and vim.tbl_contains(config.filetypes, filetype) then
-      
       -- Check if the server is already running for this buffer
       local matching_clients = vim.lsp.get_clients({ name = server_name })
       if #matching_clients > 0 then
@@ -88,9 +85,8 @@ local function start_lsp_for_buffer(bufnr, filetype)
   end
 end
 
--- Autocommands to trigger LSP startup dynamically based on discovered filetypes.
+-- Autocommands to trigger LSP startup for specific file types.
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = file_types,
   callback = function(args)
     start_lsp_for_buffer(args.buf, args.match)
   end,

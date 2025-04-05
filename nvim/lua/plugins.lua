@@ -20,6 +20,9 @@ local plugins = {
         },
         config = function()
             require('lualine').setup({
+                options = {
+                    theme = "auto",
+                },
                 sections = {
                     lualine_c = {
                         {
@@ -29,21 +32,6 @@ local plugins = {
                     }
                 }
             })
-        end
-    },
-
-    {
-        'folke/trouble.nvim',
-        dependencies = {
-            'kyazdani42/nvim-web-devicons'
-        },
-        config = function()
-            require('trouble').setup {
-                diagnostic_signs = true,
-            }
-            vim.api.nvim_set_keymap("n", "<F1>", "<cmd>Trouble diagnostics toggle<cr>", { silent = true, noremap = true })
-            vim.api.nvim_set_keymap("n", "<F5>", "<cmd>Trouble symbols toggle focus=false<cr>",
-                { silent = true, noremap = true })
         end
     },
 
