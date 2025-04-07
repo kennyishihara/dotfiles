@@ -95,7 +95,6 @@ local plugins = {
             require('mini.splitjoin').setup()
             require('mini.jump').setup()
             require('mini.files').setup()
-            require('mini.completion').setup()
             require('mini.icons').setup()
             require('mini.snippets').setup()
             vim.keymap.set("n", "<leader>t", function()

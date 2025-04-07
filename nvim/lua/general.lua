@@ -19,13 +19,13 @@ vim.opt.nu = true
 vim.opt.laststatus = 3
 vim.opt.cmdheight = 1
 vim.opt.updatetime = 300
-vim.opt.completeopt= "menuone,noinsert,noselect"
+-- vim.opt.completeopt= "noselect"
 vim.opt.shortmess:append("c")
 vim.opt.diffopt:append("iwhite")
 vim.opt.showmatch = true
 vim.opt.wrap = false
 vim.o.termguicolors = false
-vim.o.winborder = 'single'
+vim.o.winborder = "rounded"
 
 -- For md files, use conceal to hide the markdown syntax
 vim.opt.conceallevel = 0
