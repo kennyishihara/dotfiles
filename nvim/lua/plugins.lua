@@ -12,6 +12,12 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    {
+        "olimorris/onedarkpro.nvim",
+        config = function()
+            vim.cmd("colorscheme onedark_dark")
+        end
+    },
 
     {
         'nvim-lualine/lualine.nvim',
