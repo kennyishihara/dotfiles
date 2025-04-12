@@ -99,7 +99,6 @@ local plugins = {
             require('mini.surround').setup()
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
-            require('mini.jump').setup()
             require('mini.files').setup()
             require('mini.icons').setup()
             require('mini.snippets').setup()
