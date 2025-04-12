@@ -7,9 +7,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local buffer = ev.buf
         local opts = { buffer = buffer, noremap = true, silent = true }
+        -- list custom keymappings
         vim.keymap.set('n', '<space>f', function()
             vim.lsp.buf.format({ async = true })
         end, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     end,
 })
 
