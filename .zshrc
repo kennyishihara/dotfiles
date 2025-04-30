@@ -63,7 +63,6 @@ fi
 # xref: https://github.com/starship/starship/issues/3418
 type starship_zle-keymap-select >/dev/null || \
   {
-    echo "Load starship"
     eval "$(starship init zsh)"
   }
 eval "$(mcfly init zsh)"
