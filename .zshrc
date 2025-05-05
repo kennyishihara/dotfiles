@@ -59,6 +59,9 @@ if [[ $(command -v z) ]]; then
   alias cdi="zi"
 fi
 
+# git shortcuts
+alias rmgitignored="git ls-files -ci --exclude-standard -z | xargs -0 git rm --cached"
+
 # Check that the function `starship_zle-keymap-select()` is defined.
 # xref: https://github.com/starship/starship/issues/3418
 type starship_zle-keymap-select >/dev/null || \
