@@ -89,6 +89,51 @@ local plugins = {
         end
     },
 
+    ---@type LazySpec
+    {
+        "mikavilpas/yazi.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            -- check the installation instructions at
+            -- https://github.com/folke/snacks.nvim
+            "folke/snacks.nvim"
+        },
+        keys = {
+            -- 👇 in this section, choose your own keymappings!
+            {
+                "<leader>t",
+                mode = { "n", "v" },
+                "<cmd>Yazi<cr>",
+                desc = "Open yazi at the current file",
+            },
+            {
+                -- Open in the current working directory
+                "<leader>wt",
+                "<cmd>Yazi cwd<cr>",
+                desc = "Open the file manager in nvim's working directory",
+            },
+            {
+                "<c-up>",
+                "<cmd>Yazi toggle<cr>",
+                desc = "Resume the last yazi session",
+            },
+        },
+        ---@type YaziConfig | {}
+        opts = {
+            -- if you want to open yazi instead of netrw, see below for more info
+            open_for_directories = false,
+            keymaps = {
+                show_help = "<f1>",
+            },
+        },
+        -- 👇 if you use `open_for_directories=true`, this is recommended
+        init = function()
+            -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+            -- vim.g.loaded_netrw = 1
+            vim.g.loaded_netrwPlugin = 1
+        end,
+    },
+
     {
         "echasnovski/mini.nvim",
         version = false,
@@ -99,15 +144,15 @@ local plugins = {
             require('mini.surround').setup()
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
-            require('mini.files').setup()
+            -- require('mini.files').setup()
             require('mini.icons').setup()
             require('mini.snippets').setup()
-            vim.keymap.set("n", "<leader>t", function()
-                if not require("mini.files").close() then
-                    -- If it wasn't open, then open it
-                    require("mini.files").open()
-                end
-            end, { desc = "Toggle mini.files explorer" })
+            -- vim.keymap.set("n", "<leader>t", function()
+            --     if not require("mini.files").close() then
+            --         -- If it wasn't open, then open it
+            --         require("mini.files").open()
+            --     end
+            -- end, { desc = "Toggle mini.files explorer" })
         end
     },
 
