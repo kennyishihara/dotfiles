@@ -3,7 +3,6 @@
 ## Terminal
 
 - `Wezterm`
-  - `catppucin` theme
   - `Roboto Mono` font
   - `Starship` for shell customization
 
@@ -12,7 +11,6 @@
 ## Multiplexer
 
 - `tmux`
-  - `catppucin` theme
 
 ## Editor
 

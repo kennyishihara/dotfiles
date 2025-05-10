@@ -15,6 +15,13 @@ local plugins = {
     {
         "olimorris/onedarkpro.nvim",
         config = function()
+            require("onedarkpro").setup({
+                highlights = {
+                    Identifier = { fg = "#FFFFFF" },
+                    Function = { fg = "#FFFFFF" },
+                    Comment = { fg = "#FFFFFF", italic = true },
+                },
+            })
             vim.cmd("colorscheme onedark_dark")
         end
     },
@@ -163,6 +170,33 @@ local plugins = {
             vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'Z', '<Plug>(leap-backward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'zs', '<Plug>(leap-from-window)')
+        end
+    },
+
+    {
+        "Exafunction/windsurf.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+        },
+        config = function()
+            require("codeium").setup({
+                virtual_text = {
+                    enabled = true,
+                    manual = true,
+                    key_bindings = {
+                        accept = "<C-l>",
+                        accept_word = false,
+                        accept_line = false,
+                        clear = "<C-x>",
+                        next = "<C-j>",
+                        prev = "<C-k>"
+                    }
+                }
+            })
+            vim.keymap.set("i", "<C-n>", function()
+                require("codeium.virtual_text").cycle_or_complete()
+            end, { silent = true })
         end
     },
 }
