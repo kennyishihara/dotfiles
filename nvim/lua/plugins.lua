@@ -174,30 +174,27 @@ local plugins = {
     },
 
     {
-        "Exafunction/windsurf.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "hrsh7th/nvim-cmp",
-        },
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
         config = function()
-            require("codeium").setup({
-                virtual_text = {
+            require("copilot").setup({
+                suggestion = {
                     enabled = true,
-                    manual = true,
-                    key_bindings = {
+                    auto_trigger = false,
+                    hide_during_completion = true,
+                    debounce = 75,
+                    trigger_on_accept = true,
+                    keymap = {
                         accept = "<C-l>",
-                        accept_word = false,
-                        accept_line = false,
-                        clear = "<C-x>",
                         next = "<C-j>",
-                        prev = "<C-k>"
-                    }
-                }
+                        prev = "<C-k>",
+                        dismiss = "<C-;>",
+                    },
+                },
+                copilot_model = "gpt-4o-copilot",
             })
-            vim.keymap.set("i", "<C-n>", function()
-                require("codeium.virtual_text").cycle_or_complete()
-            end, { silent = true })
-        end
+        end,
     },
 }
 

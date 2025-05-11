@@ -29,8 +29,14 @@ vnoremap("p", "p`]", true)
 nnoremap("p", "p`]", true)
 
 -- delete without yanking
-nnoremap("<leader>d", '"_d')
-vnoremap("<leader>d", '"_d')
+nnoremap("<leader>d", '"_dd')
+vnoremap("<leader>d", '"_dd')
 
 -- replace currently selected text with default register without yanking it
 vnoremap("<leader>p", '"_dP')
+
+-- move around splits with hjkl
+nnoremap("<C-h>", "<C-w>h")
+nnoremap("<C-j>", "<C-w>j")
+nnoremap("<C-k>", "<C-w>k")
+nnoremap("<C-l>", "<C-w>l")

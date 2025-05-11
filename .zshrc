@@ -71,6 +71,3 @@ type starship_zle-keymap-select >/dev/null || \
 eval "$(mcfly init zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/kennyishihara/.cache/lm-studio/bin"
