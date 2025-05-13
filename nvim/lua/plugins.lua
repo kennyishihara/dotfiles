@@ -13,17 +13,23 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
     {
-        "olimorris/onedarkpro.nvim",
+        "rose-pine/neovim",
         config = function()
-            require("onedarkpro").setup({
-                highlights = {
-                    Identifier = { fg = "#FFFFFF" },
-                    Function = { fg = "#FFFFFF" },
-                    Comment = { fg = "#FFFFFF", italic = true },
+            require("rose-pine").setup({
+                dim_inactive_windows = false,
+                extend_background_behind_borders = true,
+                enable = {
+                    terminal = true,
+                    migrations = true, -- Handle deprecated options automatically
+                },
+                styles = {
+                    bold = true,
+                    italic = true,
+                    transparency = true,
                 },
             })
-            vim.cmd("colorscheme onedark_dark")
-        end
+            vim.cmd("colorscheme rose-pine")
+        end,
     },
 
     {
