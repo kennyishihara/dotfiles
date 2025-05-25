@@ -1,20 +1,6 @@
 vim.o.completeopt = 'menuone,noselect,popup'
 
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        local buffer = ev.buf
-        local opts = { buffer = buffer, noremap = true, silent = true }
-        vim.keymap.set('n', '<space>f', function()
-            vim.lsp.buf.format({ async = true })
-        end, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    end,
-})
-
-local lsp_path = "lsp"
-local servers = {}
-
+-- Helper function to find project root directory
 local function find_root_dir(bufnr, root_markers)
     bufnr = bufnr or 0
     if not root_markers or #root_markers == 0 then
@@ -24,6 +10,7 @@ local function find_root_dir(bufnr, root_markers)
     if vim.fs.root then
         return vim.fs.root(bufnr, root_markers) or vim.fn.getcwd()
     else
+        -- Fallback for older versions
         local buffer_path = vim.api.nvim_buf_get_name(bufnr)
         local current_dir = vim.fn.fnamemodify(buffer_path, ':p:h')
 
@@ -40,86 +27,83 @@ local function find_root_dir(bufnr, root_markers)
     end
 end
 
-local function load_lsp_configs()
-    local lsp_dir = vim.fn.stdpath("config") .. "/lua/" .. lsp_path
-    local lsp_files = vim.fn.globpath(lsp_dir, "*.lua", false, true)
+-- LSP attach configuration
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        local buffer = ev.buf
+        local opts = { buffer = buffer, noremap = true, silent = true }
 
-    for _, file in ipairs(lsp_files) do
-        local server_name = file:match("([^/]+)%.lua$")
-        if server_name then
-            local ok, config = pcall(require, lsp_path .. "." .. server_name)
-            if ok and type(config) == "table" then
-                local original_on_attach = config.on_attach
-                config.on_attach = function(client, bufnr)
-                    if original_on_attach then
-                        original_on_attach(client, bufnr)
-                    end
+        -- Key mappings
+        vim.keymap.set('n', '<space>f', function()
+            vim.lsp.buf.format({ async = true })
+        end, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('i', '<C-n>', '<C-x><C-o>', { buffer = buffer, desc = 'Trigger LSP completion' })
 
-                    vim.lsp.completion.enable(true, client.id, bufnr, {
-                        autotrigger = true,
-                        convert = function(item)
-                            return { abbr = item.label:gsub('%b()', '') }
-                        end,
-                    })
-                end
+        -- Enable built-in completion if available
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client and vim.lsp.completion then
+            vim.lsp.completion.enable(true, client.id, buffer, {
+                autotrigger = true,
+                convert = function(item)
+                    return { abbr = item.label:gsub('%b()', '') }
+                end,
+            })
+        end
+    end,
+})
 
-                servers[server_name] = config
-                servers[server_name].name = server_name
-            else
-                print("Failed to load LSP config for: " .. server_name)
-            end
+-- Load LSP configurations from lua/lsp/ directory
+local servers = {}
+local lsp_dir = vim.fn.stdpath("config") .. "/lua/lsp"
+local lsp_files = vim.fn.globpath(lsp_dir, "*.lua", false, true)
+
+for _, file in ipairs(lsp_files) do
+    local server_name = file:match("([^/]+)%.lua$")
+    if server_name then
+        local ok, config = pcall(require, "lsp." .. server_name)
+        if ok and type(config) == "table" then
+            servers[server_name] = config
         end
     end
 end
 
-load_lsp_configs()
-
+-- Start LSP for buffer
 local function start_lsp_for_buffer(bufnr, filetype)
     bufnr = bufnr or vim.api.nvim_get_current_buf()
     filetype = filetype or vim.bo[bufnr].filetype
 
     for server_name, config in pairs(servers) do
         if config.filetypes and vim.tbl_contains(config.filetypes, filetype) then
-            local root_dir
-            if config.root_markers then
-                root_dir = find_root_dir(bufnr, config.root_markers)
-            elseif config.root_dir and type(config.root_dir) == "function" then
-                root_dir = config.root_dir(vim.api.nvim_buf_get_name(bufnr))
-            else
-                root_dir = config.root_dir or vim.fn.getcwd()
-            end
+            -- Find proper root directory
+            local root_dir = find_root_dir(bufnr, config.root_markers) or vim.fn.getcwd()
 
-            local matching_clients = vim.lsp.get_clients({
-                name = server_name,
-                bufnr = bufnr
-            })
-
-            local client_for_root = nil
-            for _, client in ipairs(matching_clients) do
+            -- Check for existing client with same root
+            local existing_client = nil
+            for _, client in ipairs(vim.lsp.get_clients({ name = server_name })) do
                 if client.config.root_dir == root_dir then
-                    client_for_root = client
+                    existing_client = client
                     break
                 end
             end
 
-            if client_for_root then
-                if not client_for_root.attached_buffers[bufnr] then
-                    vim.lsp.buf_attach_client(bufnr, client_for_root.id)
+            if existing_client then
+                if not existing_client.attached_buffers[bufnr] then
+                    vim.lsp.buf_attach_client(bufnr, existing_client.id)
                 end
             else
+                -- Start new LSP client
                 local client_config = vim.deepcopy(config)
                 client_config.root_dir = root_dir
-                local client_id = vim.lsp.start(client_config)
-                if not client_id then
-                    print("Failed to start LSP client for: " .. server_name)
-                end
+                vim.lsp.start(client_config)
             end
-
             break
         end
     end
 end
 
+-- Auto-start LSP on FileType
 vim.api.nvim_create_autocmd("FileType", {
     callback = function(args)
         start_lsp_for_buffer(args.buf, args.match)

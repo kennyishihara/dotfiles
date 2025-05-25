@@ -158,8 +158,8 @@ local plugins = {
             require('mini.comment').setup()
             require('mini.splitjoin').setup()
             -- require('mini.files').setup()
-            require('mini.icons').setup()
-            require('mini.snippets').setup()
+            -- require('mini.icons').setup()
+            -- require('mini.snippets').setup()
             -- vim.keymap.set("n", "<leader>t", function()
             --     if not require("mini.files").close() then
             --         -- If it wasn't open, then open it
