@@ -71,3 +71,4 @@ type starship_zle-keymap-select >/dev/null || \
 eval "$(mcfly init zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+setopt autocd
