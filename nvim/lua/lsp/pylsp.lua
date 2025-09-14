@@ -15,7 +15,7 @@ return {
     pylsp = {
       plugins = {
         black = { enabled = true },
-        autopep8 = { enabled = true },
+        autopep8 = { enabled = false },
         pyflakes = { enabled = true },
         pycodestyle = { enabled = true },
         pyls_isort = { enabled = true },
