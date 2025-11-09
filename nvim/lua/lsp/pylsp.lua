@@ -19,7 +19,7 @@ return {
         pyflakes = { enabled = true },
         pycodestyle = { enabled = true },
         pyls_isort = { enabled = true },
-        pyls_mypy = { enabled = true },
+        pyls_mypy = { enabled = false },
       }
     }
   }
