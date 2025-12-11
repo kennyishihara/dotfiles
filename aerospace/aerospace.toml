@@ -167,4 +167,7 @@ alt-shift-l = ['join-with right', 'mode main']
 
 
 [workspace-to-monitor-force-assignment]
+1 = 'secondary'
+4 = 'secondary'
 5 = 'secondary'
+6 = 'secondary'
