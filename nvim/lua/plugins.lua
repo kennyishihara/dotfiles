@@ -198,7 +198,7 @@ local plugins = {
                         dismiss = "<C-;>",
                     },
                 },
-                copilot_model = "gpt-4o-copilot",
+                copilot_model = "gpt-5-mini",
             })
         end,
     },
