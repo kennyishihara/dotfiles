@@ -30,11 +30,23 @@ vim.o.winborder = "rounded"
 -- For md files, use conceal to hide the markdown syntax
 vim.opt.conceallevel = 0
 
-vim.diagnostic.config({ virtual_lines = { current_line = true } })
+vim.diagnostic.config({
+  underline = false,
+  virtual_lines = {
+    current_line = true,
+  },
+})
 
 -- Autoread any changes in the buffer
 vim.o.autoread = true
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-  command = "if mode() != 'c' | checktime | endif",
-  pattern = "*",
-})
+
+vim.api.nvim_create_autocmd(
+  { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" },
+  {
+    callback = function()
+      if vim.fn.mode() ~= "c" then
+        vim.cmd("checktime")
+      end
+    end,
+  }
+)
