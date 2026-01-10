@@ -31,15 +31,17 @@ vim.o.winborder = "rounded"
 vim.opt.conceallevel = 0
 
 vim.diagnostic.config({
-  underline = false,
-  virtual_lines = {
-    current_line = true,
+  virtual_lines = false,
+  virtual_text = {
+    spacing = 2,
+    prefix = "●",
   },
+  underline = false,
 })
 
--- Autoread any changes in the buffer
+-- Autoreload external modifications
 vim.o.autoread = true
-
+vim.o.updatetime = 500
 vim.api.nvim_create_autocmd(
   { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" },
   {
