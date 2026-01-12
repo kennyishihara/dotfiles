@@ -32,10 +32,6 @@ vim.opt.conceallevel = 0
 
 vim.diagnostic.config({
   virtual_lines = false,
-  virtual_text = {
-    spacing = 2,
-    prefix = "●",
-  },
   underline = false,
 })
 
