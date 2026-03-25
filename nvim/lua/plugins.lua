@@ -40,7 +40,8 @@ local plugins = {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = "ayu_dark",
+                    -- theme = "ayu_dark",
+                    theme = "rose-pine",
                 },
                 sections = {
                     lualine_c = {
@@ -170,7 +171,7 @@ local plugins = {
     },
 
     {
-        "ggandor/leap.nvim",
+        url = "https://codeberg.org/andyg/leap.nvim",
         config = function()
             require('leap').setup({})
             vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
@@ -197,7 +198,7 @@ local plugins = {
                         dismiss = "<C-;>",
                     },
                 },
-                copilot_model = "gpt-5-mini",
+                copilot_model = "gpt-41-copilot",
             })
         end,
     },
