@@ -82,10 +82,23 @@ local plugins = {
     -- Mason-lspconfig for easy installation of language servers
     {
         'williamboman/mason-lspconfig.nvim',
-        dependencies = { 'williamboman/mason.nvim' },
+        dependencies = {
+            'williamboman/mason.nvim',
+            'neovim/nvim-lspconfig',
+        },
         config = function()
             require('mason-lspconfig').setup({
-                ensure_installed = {},
+                automatic_enable = false,
+                ensure_installed = {
+                    "cssls",
+                    "denols",
+                    "html",
+                    "jsonls",
+                    "lua_ls",
+                    "pylsp",
+                    "rust_analyzer",
+                    "ts_ls",
+                },
             })
         end
     },
@@ -177,31 +190,8 @@ local plugins = {
             vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'Z', '<Plug>(leap-backward)')
         end
-    },
+    }
 
-    {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
-        config = function()
-            require("copilot").setup({
-                suggestion = {
-                    enabled = true,
-                    auto_trigger = false,
-                    hide_during_completion = true,
-                    debounce = 75,
-                    trigger_on_accept = true,
-                    keymap = {
-                        accept = "<C-l>",
-                        next = "<C-j>",
-                        prev = "<C-k>",
-                        dismiss = "<C-;>",
-                    },
-                },
-                copilot_model = "gpt-41-copilot",
-            })
-        end,
-    },
 }
 
 local opts = {}

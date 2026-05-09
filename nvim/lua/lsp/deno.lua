@@ -10,13 +10,8 @@ return {
     "javascriptreact",
     "javascript.jsx"
   },
-  -- Typical root markers for Deno or JS/TS projects.
-  -- Feel free to adjust (or remove root_dir if you have a more global config).
-  root_dir = function(fname)
-    local util = require("lspconfig.util")
-    return util.root_pattern("deno.json", "deno.jsonc", "package.json", ".git")(fname)
-      or util.path.dirname(fname)
-  end,
+  root_markers = { "deno.json", "deno.jsonc" },
+  single_file_support = false,
   init_options = {
     lint = true,
     unstable = false, -- set to true if you need Deno's unstable APIs
