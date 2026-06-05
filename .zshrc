@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/Developer:$JAVA_HOME/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$HOME/.cargo/bin:$PATH:$HOME/Developer/flutter/bin
 export EDITOR='/opt/homebrew/opt/neovim/bin/nvim'
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -8,13 +8,7 @@ export RESTIC_REPOSITORY="Restic/restic-repo"
 export KEYTIMEOUT=1
 bindkey -v
 
-#mcfly
-export MCFLY_DISABLE_MENU=TRUE
-export MCFLY_RESULTS=20
-export MCFLY_INTERFACE_VIEW=BOTTOM
-export MCFLY_KEY_SCHEME=vim
-export MCFLY_RESULTS_SORT=LAST_RUN
-export MCFLY_HISTORY_LIMIT=100000
+setopt autocd
 
 # lsd
 if [[ $(command -v lsd) ]]; then
@@ -68,7 +62,20 @@ type starship_zle-keymap-select >/dev/null || \
   {
     eval "$(starship init zsh)"
   }
-eval "$(mcfly init zsh)"
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-setopt autocd
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/kennyishihara/.cache/lm-studio/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kennyishihara/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kennyishihara/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kennyishihara/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kennyishihara/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
