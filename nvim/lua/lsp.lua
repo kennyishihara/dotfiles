@@ -52,6 +52,7 @@ local function on_attach(client, bufnr)
   end, opts)
 
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+  vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts)
 
   vim.keymap.set("i", "<C-n>", "<C-x><C-o>", {
     buffer = bufnr,

@@ -42,9 +42,16 @@ vim.api.nvim_create_autocmd(
   { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" },
   {
     callback = function()
-      if vim.fn.mode() ~= "c" then
-        vim.cmd("checktime")
+      if
+        vim.fn.mode() == "c"
+        or vim.fn.getcmdwintype() ~= ""
+        or vim.bo.buftype == "prompt"
+        or vim.bo.buftype == "nofile"
+      then
+        return
       end
+
+      vim.cmd("checktime")
     end,
   }
 )

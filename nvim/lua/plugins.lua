@@ -56,14 +56,6 @@ local plugins = {
     },
 
     {
-        'nvim-treesitter/nvim-treesitter',
-        build = ":TSUpdate",
-        config = function()
-            require("config.treesitter")
-        end
-    },
-
-    {
         'lewis6991/gitsigns.nvim',
         config = function()
             require("config.gitsigns")
@@ -190,8 +182,30 @@ local plugins = {
             vim.keymap.set({ 'n', 'x', 'o' }, 'z', '<Plug>(leap-forward)')
             vim.keymap.set({ 'n', 'x', 'o' }, 'Z', '<Plug>(leap-backward)')
         end
-    }
+    },
 
+    {
+        'nvim-flutter/flutter-tools.nvim',
+        lazy = false,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'stevearc/dressing.nvim', -- optional for vim.ui.select
+        },
+        config = function()
+            require("flutter-tools").setup({
+                lsp = {
+                    on_attach = require("lsp").on_attach,
+                    settings = {
+                        showTodos = true,
+                        completeFunctionCalls = true,
+                        renameFilesWithClasses = "prompt",
+                        enableSnippets = true,
+                        updateImportsOnRename = true,
+                    },
+                },
+            })
+        end,
+    }
 }
 
 local opts = {}
